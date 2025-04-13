@@ -1,0 +1,13 @@
+streamlit
+pandas
+pdfminer.six
+python-docx
+sentence-transformers
+scikit-learn
+torch
+numpy
+docx2txt
+matplotlib
+openai
+python-dotenv
+reportlab
