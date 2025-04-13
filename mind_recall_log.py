@@ -7,6 +7,49 @@ import openai
 from dotenv import load_dotenv
 import os
 
+
+import streamlit as st
+
+# --- Simple Password Auth with Styling & Session ---
+
+PASSWORD = "Anu@1504"  # Change to your actual password
+
+def check_password():
+    if "password_correct" not in st.session_state:
+        # Centered styling
+        st.markdown("""
+            <style>
+            .centered {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 75vh;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
+        st.markdown('<div class="centered">', unsafe_allow_html=True)
+        st.image("https://i.imgur.com/XHJg7MW.png", width=80)  # Optional: Your logo
+        st.title("🔐 Mind Log Login")
+        st.text_input("Enter your password", type="password", key="password")
+        if st.button("Login"):
+            if st.session_state["password"] == PASSWORD:
+                st.session_state["password_correct"] = True
+                del st.session_state["password"]
+            else:
+                st.error("🚫 Incorrect password.")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.stop()
+
+    elif not st.session_state["password_correct"]:
+        st.error("🚫 Incorrect password.")
+        st.stop()
+
+check_password()
+
+
+
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
